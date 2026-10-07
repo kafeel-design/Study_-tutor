@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>اسٹڈی پورٹل — ڈیش بورڈ</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #120d1a;
+  --card: #1e152d;
+  --card-hover: #291e3d;
+  --tx: #f3f0f7;
+  --mu: #b3a7cb;
+  --ac: #9c27b0;
+  --ac-hover: #ab47bc;
+  --bd: #382852;
+  --ok: #26a69a;
+  --ok-bg: #004d40;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--tx);
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size: 18px;
+  line-height: 1.8;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+}
+.container {
+  width: 100%;
+  max-width: 650px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--bd);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  margin-bottom: 16px;
+}
+h1 { font-size: 28px; margin: 0 0 10px; color: #ce93d8; text-align: center; }
+p { margin: 8px 0; color: var(--mu); font-size: 16px; text-align: center; }
+.input-group {
+  margin: 20px 0;
+}
+input[type="text"] {
+  width: 100%;
+  padding: 14px 18px;
+  background: var(--bg);
+  border: 1.5px solid var(--bd);
+  border-radius: 12px;
+  color: var(--tx);
+  font-size: 18px;
+  font-family: inherit;
+  outline: none;
+  text-align: center;
+}
+input[type="text"]:focus {
+  border-color: var(--ac);
+  box-shadow: 0 0 10px rgba(156, 39, 176, 0.4);
+}
+.btn {
+  width: 100%;
+  background: var(--ac);
+  color: #fff;
+  border: 0;
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+  font-family: inherit;
+}
+.btn:hover { background: var(--ac-hover); }
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--bd);
+  padding-bottom: 12px;
+}
+.user-badge {
+  background: rgba(156, 39, 176, 0.2);
+  color: #e1bee7;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 15px;
+  border: 1px solid var(--ac);
+}
+.subjects-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 15px;
+}
+.subject-card {
+  background: var(--bg);
+  border: 1px solid var(--bd);
+  border-radius: 14px;
+  padding: 16px;
+  transition: 0.2s;
+}
+.subject-card:hover {
+  border-color: var(--ac);
+  transform: translateY(-2px);
+}
+.subject-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #e1bee7;
+  margin-bottom: 6px;
+}
+.links-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+.link-btn {
+  flex: 1;
+  background: var(--card);
+  border: 1px solid var(--bd);
+  color: var(--tx);
+  padding: 8px;
+  border-radius: 8px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 15px;
+  cursor: pointer;
+}
+.link-btn:hover {
+  background: var(--ac);
+  border-color: var(--ac);
+}
+.hidden { display: none !important; }
+.logout-btn {
+  background: transparent;
+  border: 1px solid #d32f2f;
+  color: #ef9a9a;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.logout-btn:hover { background: #d32f2f; color: #fff; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Login Section -->
+  <div class="card" id="loginCard">
+    <h1>اسٹڈی پورٹل میں خوش آمدید</h1>
+    <p>شروع کرنے کے لیے براہ کرم اپنا پورا نام درج کریں:</p>
+    <div class="input-group">
+      <input type="text" id="userNameInput" placeholder="اپنا نام یہاں لکھیں..." autocomplete="off">
+    </div>
+    <button class="btn" onclick="handleLogin()">سسٹم کھولیں ←</button>
+  </div>
+
+  <!-- Dashboard Main Section -->
+  <div class="hidden" id="dashboardCard">
+    <div class="card">
+      <div class="header-top">
+        <div>
+          <span style="font-size:14px; color:var(--mu);">خوش آمدید،</span>
+          <div id="displayName" style="font-size:20px; font-weight:bold; color:#e1bee7;"></div>
+        </div>
+        <div>
+          <button class="logout-btn" onclick="handleLogout()">باہر نکلیں</button>
+        </div>
+      </div>
+
+      <p style="text-align:right; margin-bottom:15px;">آپ کے تمام مضامین کے نوٹس اور کوئزز یہاں دستیاب ہیں:</p>
+
+      <div class="subjects-grid">
+        <!-- Subject 1 -->
+        <div class="subject-card">
+          <div class="subject-title">🤖 آرٹیفیشل انٹیلی جنس (AI)</div>
+          <p style="text-align:right; font-size:14px;">لیکچر نوٹس، بیسکس، اور مشین لرننگ مٹیریل۔</p>
+          <div class="links-row">
+            <a href="#" onclick="alert('یہاں آپ اپنے Google Drive notes کا لنک لگا سکتے ہیں!')" class="link-btn">📁 نوٹس دیکھیں</a>
+            <a href="#" onclick="alert('یہاں کوئز فائل کا لنک آئے گا!')" class="link-btn">📝 کوئز پیپر</a>
+          </div>
+        </div>
+
+        <!-- Subject 2 -->
+        <div class="subject-card">
+          <div class="subject-title">📖 اسلامیات و قرآنیات</div>
+          <p style="text-align:right; font-size:14px;">سورہ الحجرات، عقائد، اور تفصیلی سوالات۔</p>
+          <div class="links-row">
+            <a href="#" onclick="alert('نوٹس کا لنک یہاں درج کریں')" class="link-btn">📁 نوٹس دیکھیں</a>
+            <a href="#" onclick="alert('کوئز کا لنک یہاں درج کریں')" class="link-btn">📝 کوئز پیپر</a>
+          </div>
+        </div>
+
+        <!-- Subject 3 -->
+        <div class="subject-card">
+          <div class="subject-title">📐 ریاضی (Mathematics)</div>
+          <p style="text-align:right; font-size:14px;">لائن ایکوئیشنز، فنکشنز اور پریکٹس سوالات۔</p>
+          <div class="links-row">
+            <a href="#" onclick="alert('نوٹس کا لنک یہاں درج کریں')" class="link-btn">📁 نوٹس دیکھیں</a>
+            <a href="#" onclick="alert('کوئز کا لنک یہاں درج کریں')" class="link-btn">📝 کوئز پیپر</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Check if user is already logged in via localStorage
+window.onload = function() {
+  const savedUser = localStorage.getItem('study_portal_user');
+  if(savedUser) {
+    document.getElementById('displayName').textContent = savedUser;
+    document.getElementById('loginCard').classList.add('hidden');
+    document.getElementById('dashboardCard').classList.remove('hidden');
+  }
+};
+
+function handleLogin() {
+  const nameInput = document.getElementById('userNameInput').value.trim();
+  if(!nameInput) {
+    alert('براہ کرم پہلے اپنا نام درج کریں!');
+    document.getElementById('userNameInput').focus();
+    return;
+  }
+  
+  // Save user name
+  localStorage.setItem('study_portal_user', nameInput);
+  document.getElementById('displayName').textContent = nameInput;
+  
+  // Switch view with smooth transition effect
+  document.getElementById('loginCard').classList.add('hidden');
+  document.getElementById('dashboardCard').classList.remove('hidden');
+}
+
+function handleLogout() {
+  localStorage.removeItem('study_portal_user');
+  document.getElementById('userNameInput').value = '';
+  document.getElementById('dashboardCard').classList.add('hidden');
+  document.getElementById('loginCard').classList.remove('hidden');
+}
+
+// Allow Enter key to submit login
+document.getElementById('userNameInput').addEventListener('keydown', function(e) {
+  if(e.key === 'Enter') handleLogin();
+});
+</script>
+
+</body>
+</html>
